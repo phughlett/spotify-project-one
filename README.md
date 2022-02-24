@@ -1,12 +1,14 @@
 # Reactify
-### *Spotify, but on React.js*
+*Spotify, but on React.js*
 
 Reactify is a React application that explores the functionality of the Spotify API.
 
 ## Table of Contents
 
 [1. Description](#description)
+
 [2. Installation](#installation)
+
 [3. Usage](#usage)
 
 
