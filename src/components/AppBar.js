@@ -77,7 +77,7 @@ export default function SearchAppBar() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, font: 'sans-serif' }}
           >
-            Reactify
+
           </Typography>
             <Search onChange={e => setSearchKey(e.target.value)}>
               <SearchIconWrapper>

@@ -1,5 +1,11 @@
 .App {
   text-align: center;
+  background-color: #282c34;
+}
+
+.app-body {
+  position: relative;
+  top: 100px;
 }
 
 .App-logo {
@@ -15,12 +21,6 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
 }
 
@@ -52,7 +52,7 @@ button {
   border-image: initial;
 }
 
-.primaryButton {
+.login-button {
   background-color: #1DB954;
   color: #fff;
   font-size: 13px;
@@ -68,6 +68,25 @@ button {
   text-decoration: none;
 }
 
+.logout-button {
+  background-color: #1DB954;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 32px;
+  margin: 16px 0;
+  padding: 8px 36px;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: none;
+  border: none;
+  text-decoration: none;
+  position: absolute;
+  top: 20;
+  right: 100;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -79,4 +98,7 @@ button {
 
 .reactify-logo {
   font: san-serif;
+  position: absolute;
+  right: 20;
+  top: 20;
 }
