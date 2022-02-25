@@ -1,0 +1,86 @@
+.homepage{
+    /* background-color: #282c34; */
+    background-color: transparent;
+}
+
+.homepage-head{
+    /* background-color: #282c34; */
+    background-color: transparent;
+}
+
+.homepage-body{
+    top: 200;
+}
+
+.homepage-toprow {
+    display: flex;
+    justify-content: space-between;
+    /* background-color: #282c34; */
+    background-color: transparent;
+}
+
+.homepage-appbar {
+    width: 75%;
+    position: absolute;
+    left: 12.5%;
+    top: 15%; 
+}
+.homepage-logo {
+    color: white;
+}
+
+.homepage-content {
+    width: 75%;
+    position: absolute;
+    left: 12.5%;
+    top: 27%;
+}
+
+.homepage-icon {
+    width: 70px
+}
+
+.logo-and-icon {
+    width: 150px;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+  
+.logout-button {
+    appearance: auto;
+    text-rendering: auto;
+    color: -internal-light-dark(black, white);
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    text-align: center;
+    align-items: flex-start;
+    cursor: default;
+    box-sizing: border-box;
+    background-color: -internal-light-dark(rgb(239, 239, 239), rgb(59, 59, 59));
+    margin: 0em;
+    padding: 1px 6px;
+    border-width: 2px;
+    border-style: outset;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    border-image: initial;
+    background-color: #1DB954;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 32px;
+    margin: 16px 0;
+    padding: 8px 36px;
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: none;
+    border: none;
+    text-decoration: none;
+  }

@@ -1,10 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, Link } from "react-router-dom";
 import AppContext from './context/AppContext';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
-import SearchAppBar from './components/AppBar'
+import SearchAppBar from './components/AppBar/AppBar';
+import LogonPage from './components/LogonPage/LogonPage';
+import HomePage from './components/HomePage/HomePage';
 
 
 
@@ -15,13 +17,15 @@ function App() {
   const [searchKey, setSearchKey] = useState( "" )
   const [artists, setArtists] = useState( [] )
 
+  let navigate = useNavigate();
+
 
 
   //Spotify API login information and Constants
-  const CLIENT_ID = "ac38f5f06516492a855d792e3a73b558" //protect this with your life
-  const REDIRECT_URI = "http://localhost:3000"
-  const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
-  const RESPONSE_TYPE = "token"
+  // const CLIENT_ID = "ac38f5f06516492a855d792e3a73b558" //protect this with your life
+  // const REDIRECT_URI = "http://localhost:3000"
+  // const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
+  // const RESPONSE_TYPE = "token"
   const SEARCH_URL = "https://api.spotify.com/v1/search"
 
   //https://api.spotify.com/v1/artists/1vCWHaC5f2uS3yhpwWbIA6/albums?album_type=SINGLE&offset=20&limit=10
@@ -29,7 +33,7 @@ function App() {
   //helper functions
 
   const search = async (e) => {
-    //e.preventDefault()
+    // e.preventDefault();
 
     const {data} = await axios.get(SEARCH_URL, {
       headers: {
@@ -104,41 +108,36 @@ function App() {
   const logout = () => {
     setToken("")
     window.localStorage.removeItem("token")
+    navigate('/', { replace: false})
+  }
+
+  function NoMatch() {
+    return (
+      <div>
+        <h2>Nothing to see here!</h2>
+        <p>
+          <Link to="/">Go to the home page</Link>
+        </p>
+      </div>
+    )
   }
 
   let contextObj = {
     search,
-    setSearchKey
-
+    setSearchKey,
+    logout,
+    renderTrack,
+    artists
 
   }
 
   return (
     <AppContext.Provider value={contextObj}>
-      <div className="App">
-
-        <header className="App-header">
-          <h1 className="reactify-logo"> Reactify </h1>
-
-        </header>
-        <div className="app-body">
-          {!token ?
-            <a
-              href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
-              className="login-button"
-            >
-              Login to Spotify
-            </a>
-            : <button className="logout-button" onClick={logout}>Logout</button>}
-
-          {token ?
-            <SearchAppBar/>
-            : <p></p>
-          }
-
-          {renderTrack()}
-        </div>
-      </div>
+      <Routes>
+        <Route path="/" element={<LogonPage />} />
+        <Route path="homepage" element={<HomePage />} />        
+        <Route path="*" element={<NoMatch />} />
+      </Routes>
     </AppContext.Provider>
   );
 }
