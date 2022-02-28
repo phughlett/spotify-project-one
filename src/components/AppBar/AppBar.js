@@ -4,13 +4,24 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AppContext from "../../context/AppContext"
 import { useContext } from 'react';
-import FormControl from '@mui/material/FormControl';
+import { ButtonGroup, Button } from '@mui/material'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+
+const reactifyTheme = createTheme({
+  palette: {
+    primary: {
+      main: '#1DB954',
+      contrastText: '#ffffff',
+    },
+    secondary: {
+      main: '#ffffff'
+    }
+  }
+})
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -56,7 +67,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function SearchAppBar() {
 
-  let {setSearchKey, search} = useContext(AppContext);
+  let {setSearchKey, search, getUserArtists, getUserPlaylists, getUserAlbums} = useContext(AppContext);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -69,7 +80,16 @@ export default function SearchAppBar() {
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
-            <MenuIcon />
+          <ThemeProvider theme={reactifyTheme}>
+            <ButtonGroup 
+              variant="contained" 
+              aria-label="outlined primary button group"
+            >
+              <Button onClick={getUserPlaylists}>Playlists</Button>
+              <Button onClick={getUserArtists}>Artists</Button>
+              <Button onClick={getUserAlbums}>Albums</Button>
+            </ButtonGroup>
+          </ThemeProvider>
           </IconButton>
           {/* <Typography
             variant="h6"
@@ -83,7 +103,7 @@ export default function SearchAppBar() {
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
-              <form onSubmit={e => search()}>
+              <form onSubmit={e => search(e)}>
                 <StyledInputBase
                   placeholder="Search…"
                   inputProps={{ 'sans-serif-label': 'search' }}

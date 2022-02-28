@@ -1,12 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
 import { Routes, Route, useNavigate, Link } from "react-router-dom";
 import AppContext from './context/AppContext';
 import {useEffect, useState} from 'react';
-import axios from 'axios';
-import SearchAppBar from './components/AppBar/AppBar';
 import LogonPage from './components/LogonPage/LogonPage';
 import HomePage from './components/HomePage/HomePage';
+
 
 
 
@@ -15,78 +13,155 @@ function App() {
   //states
   const [token, setToken] = useState( "" )
   const [searchKey, setSearchKey] = useState( "" )
-  const [artists, setArtists] = useState( [] )
+  const [searchResultArtists, setSearchResultArtists] = useState( [] )
+  const [searchResultAlbums, setSearchResultAlbums] = useState( [] )
+  const [searchResultPlaylists, setSearchResultPlaylists] = useState([])
+  const [searchResultTracks, setSearchResultTracks] = useState([])
+  const [userPlaylists, setUserPlaylists] = useState( [] )
+  const [userArtists, setUserArtists] = useState( [] )
+  const [userAlbums, setUserAlbums] = useState( [] )
+  const [searchFlag, setSearchFlag] = useState( false )
+  const [playlistFlag, setPlaylistFlag] = useState( false )
+  const [artistFlag, setArtistFlag] = useState( false )
+  const [albumFlag, setAlbumFlag] = useState( false )
+
 
   let navigate = useNavigate();
-
-
-
-  //Spotify API login information and Constants
-  // const CLIENT_ID = "ac38f5f06516492a855d792e3a73b558" //protect this with your life
-  // const REDIRECT_URI = "http://localhost:3000"
-  // const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
-  // const RESPONSE_TYPE = "token"
-  const SEARCH_URL = "https://api.spotify.com/v1/search"
-
-  //https://api.spotify.com/v1/artists/1vCWHaC5f2uS3yhpwWbIA6/albums?album_type=SINGLE&offset=20&limit=10
 
   //helper functions
 
   const search = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
 
-    const {data} = await axios.get(SEARCH_URL, {
+    const query = encodeURIComponent(searchKey)
+    const searchURL = `https://api.spotify.com/v1/search?q=${query}&type=track%2Cartist%2Calbum%2Cplaylist`
+
+    fetch(searchURL, {
       headers: {
-        Authorization: `Bearer ${token}`
+        'Authorization': `Bearer ${token}`
       },
-      params: {
-        q: searchKey,
-        type: "artist"
-      }
+      contentType: 'application/json',
+      method: 'GET'
     })
-    console.log("DATA: ", data)
-    setArtists(data.artists.items)
+    .then(response => response.json())
+    .then((searchResults) => {
+      console.log('SearchResults: ', searchResults)
+      setSearchResultArtists(searchResults.artists.items)
+      setSearchResultAlbums(searchResults.albums.items)
+      setSearchResultPlaylists(searchResults.playlists.items)
+      setSearchResultTracks(searchResults.tracks.items)
+    })
+
+    // console.log("SEARCH RESULTS: ", searchResults.items);
+
+    setSearchFlag(true);
+    setPlaylistFlag(false);
+    setArtistFlag(false);
+    setAlbumFlag(false);
   }
 
-  // const search = async (e) => {
-  //   const headers = {
-  //     'Accept': 'application/json',
-  //     'Content-Type': 'application/json',
-  //     'Authorization': 'Bearer ' + token
-  //   }
-  //   const params = {
-  //     q: searchKey,
-  //     type: "artist",
-  //     limit: 10
-  //   }
+  const getUserPlaylists = async (e) => {
+    e.preventDefault();
 
-    //this should work maybe
-//   fetch(`https://api.spotify.com/v1/search?${fetchURL}&type=track`, {
-//     method: "GET",
-//     headers: {
-//       Authorization: `Bearer ${token}`
-//     },
-//     params: {
-//       q: searchKey,
-//       type: "artist"
-//     }
-//   }
-// )
-  //   fetch(SEARCH_URL, { method: 'GET', headers, params })
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       console.log("DATA: ", data)
-  //       setArtists(data.artists.items)
-  //     })
-  // }
+    const userPlaylistsSearchURL = "https://api.spotify.com/v1/me/playlists"
 
-  const renderTrack = () => {
-    return artists.map((artist) => (
-      <div key={artist.id}>
-        {artist.images.length ? <img width={"50%"} src={artist.images[0].url} alt=""/> : <div>No Image</div>}
-        {artist.name}
-      </div>
-    ))
+    fetch(userPlaylistsSearchURL, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      contentType: 'application/json',
+      method: 'GET'
+    })
+    .then(response => response.json())
+    .then(playlists => setUserPlaylists(playlists.items))
+
+    //console.log("USER PLAYLISTS: ", userPlaylists)
+
+    setSearchFlag(false);
+    setPlaylistFlag(true);
+    setArtistFlag(false);
+    setAlbumFlag(false);
+  }
+
+  const getUserArtists = async (e) => {
+    e.preventDefault();
+
+    const userArtistsSearchURL = "https://api.spotify.com/v1/me/following?type=artist"
+
+    fetch(userArtistsSearchURL, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      contentType: 'application/json',
+      method: 'GET'
+    })
+    .then(response => response.json())
+    .then(artists => setUserArtists(artists.artists.items))
+
+    
+
+    // console.log("USER ARTISTS: ", userArtists)
+
+    setSearchFlag(false);
+    setPlaylistFlag(false);
+    setArtistFlag(true);
+    setAlbumFlag(false);
+  }
+
+  const getUserAlbums = async (e) => {
+    e.preventDefault();
+
+    const userAlbumsSearchURL = "https://api.spotify.com/v1/me/albums"
+
+    fetch(userAlbumsSearchURL, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      contentType: 'application/json',
+      method: 'GET'
+    })
+    .then(response => response.json())
+    .then(albums => setUserAlbums(albums.items))
+
+    //console.log("USER ALBUMS: ", userAlbums)
+
+    setSearchFlag(false)
+    setPlaylistFlag(false)
+    setArtistFlag(false)
+    setAlbumFlag(true)
+  }
+
+
+  const favorite = (type, id) => {
+    console.log("ID: ", id)
+    
+    if (type === "artist") {
+      fetch(`https://api.spotify.com/v1/me/following?type=${type}&ids=${id}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        contentType: 'application/json',
+        method: 'PUT'
+      })
+    }
+    else if (type === "playlist") {
+      fetch(`https://api.spotify.com/v1/playlists/${id}/followers`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        contentType: 'application/json',
+        method: 'PUT'
+      })
+    }
+    else if (type === "album") {
+
+    }
+    
+    else {
+      console.log("We do not handle the following type: ", type)
+    }
+
+
   }
 
   useEffect(() => {
@@ -126,9 +201,21 @@ function App() {
     search,
     setSearchKey,
     logout,
-    renderTrack,
-    artists
-
+    searchResultArtists,
+    searchResultAlbums,
+    searchResultTracks,
+    searchResultPlaylists,
+    getUserArtists,
+    getUserPlaylists,
+    getUserAlbums,
+    userPlaylists,
+    userArtists,
+    userAlbums,
+    searchFlag,
+    playlistFlag,
+    artistFlag,
+    albumFlag,
+    favorite
   }
 
   return (

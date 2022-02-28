@@ -5,13 +5,25 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import AppContext from "../../../context/AppContext"
-import { useContext } from 'react';
 
-export default function ImgMediaCard({artist}) {
 
-  console.log('URL', artist.images[0].url);
+export default function ArtistImgMediaCard({artist}) {
 
+  let url = "";
+
+  // console.log("userartist: ", artist);
+
+  if(artist.images.length === 0){
+    url ="https://www.rit.edu/nsfadvance/sites/rit.edu.nsfadvance/files/default_images/photo-unavailable.png"
+  }else{
+    url = artist.images[0].url
+  }
+
+  
+  
+ 
+
+  // console.log('URL', url);
 
 
   return (
@@ -20,14 +32,14 @@ export default function ImgMediaCard({artist}) {
         component="img"
         alt={artist.name}
         height="140"
-        image = {artist.images[0].url} ? {artist.images[0].url} : {https://www.rit.edu/nsfadvance/sites/rit.edu.nsfadvance/files/default_images/photo-unavailable.png}
+        image = {url}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Album Name: {artist.name}
+          {artist.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Placeholder text
+          Followers: {artist.followers.total}
         </Typography>
       </CardContent>
       <CardActions>

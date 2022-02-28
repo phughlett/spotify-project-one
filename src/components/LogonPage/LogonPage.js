@@ -8,6 +8,9 @@ export default function LogonPage() {
   const REDIRECT_URI = "http://localhost:3000/homepage"
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
   const RESPONSE_TYPE = "token"
+  const SCOPE = "playlist-read-private playlist-read-collaborative user-follow-read user-follow-modify user-library-read"
+
+  const scope_url = encodeURIComponent(SCOPE)
 
     return (
       <body>
@@ -17,7 +20,7 @@ export default function LogonPage() {
             <p className="logonpage-slogan"><i> Spotify, but in React.js </i></p>
             <br />
             <a
-              href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
+              href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&scope=${scope_url}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
               className="login-button"
             > Login to Spotify </a>
           </div>
