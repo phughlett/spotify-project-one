@@ -1,9 +1,9 @@
-![alt text](./components/LogonPage/ReactifyLogo.png)
+![Reactify Logo Image](./src/components/LogonPage/ReactifyLogo.png)
 
 # Reactify
 *Spotify, but on React.js*
 
-Reactify is a React application that explores the functionality of the Spotify API.
+Reactify is a React application that explores the functionality of the [Spotify API](https://developer.spotify.com/documentation/web-api/).
 
 ## Table of Contents
 
@@ -20,10 +20,11 @@ This project is an intro into exploring web API's and how to utilize them within
 
 ## Installation
 
-1. Clone the directory to work with.
-2. 'npm install' in your console.
-3. 'npm start' in your console.
+1. Clone the directory to your work station.
+2. Run `npm install` in your console to install the necessary dependencies.
+3. Run `npm start` in your console to start the React server.
+4. Go to [https://localhost:3000](https://localhost:3000) on the same workstation to view the application. 
 
 ## Usage
 
-This can be picked up and utilized to simply browse through Artists, follow them onto your own account, or simply browse your own Artists, Playlists, and Albums.
+This can be picked up and utilized to simply browse through Artists, follow them onto your own account, or simply browse your own Artists, Playlists, and Albums. The application does not provide any specific function or purpose, except to show the capabilities of React.js and how it interacts with the Spotify Web API. The application allows a user to search new music and also view their own library. 
