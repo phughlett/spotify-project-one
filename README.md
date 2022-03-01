@@ -13,6 +13,8 @@ Reactify is a React application that explores the functionality of the [Spotify 
 
 [3. Usage](#usage)
 
+[4. Roadmap](#roadmap)
+
 
 ## Description
 
@@ -27,4 +29,13 @@ This project is an intro into exploring web API's and how to utilize them within
 
 ## Usage
 
-This can be picked up and utilized to simply browse through Artists, follow them onto your own account, or simply browse your own Artists, Playlists, and Albums. The application does not provide any specific function or purpose, except to show the capabilities of React.js and how it interacts with the Spotify Web API. The application allows a user to search new music and also view their own library. 
+This can be picked up and utilized to simply browse through Artists, follow them onto your own account, or simply browse your own Artists, Playlists, and Albums. The application does not provide any specific function or purpose, except to show the capabilities of React.js and how it interacts with the Spotify Web API. The application allows a user to search new music and also view their own library.
+
+## Roadmap
+
+With more time, the Reactify application could be expanded to contain more functionality. Here are some of the futher capabilities that could be added to the application:
+
+- More refined search function that searches all possible forms of media (track, artist, album, and podcasts) and organizes the search results to clearly delineate the item and its format
+- A user profile section that allows the logged on user to view their own account information
+- The ability to play songs in the application through Web Playback
+- The ability to see the tracks in an album or by an artist by clicking on the item in the search results
