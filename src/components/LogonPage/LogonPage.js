@@ -5,7 +5,7 @@ export default function LogonPage() {
 
   //Spotify API login information and Constants
   const CLIENT_ID = "ac38f5f06516492a855d792e3a73b558" //protect this with your life
-  const REDIRECT_URI = "http://localhost:3000/homepage"
+  const REDIRECT_URI = "https://main.d2tu0flixpgcms.amplifyapp.com/homepage"
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
   const RESPONSE_TYPE = "token"
   const SCOPE = "playlist-read-private playlist-read-collaborative user-follow-read user-follow-modify user-library-read"
