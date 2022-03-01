@@ -39,3 +39,5 @@ With more time, the Reactify application could be expanded to contain more funct
 - A user profile section that allows the logged on user to view their own account information
 - The ability to play songs in the application through Web Playback
 - The ability to see the tracks in an album or by an artist by clicking on the item in the search results
+- A random track button that would show the user a random song that they could listen to
+

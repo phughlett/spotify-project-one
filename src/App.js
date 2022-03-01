@@ -12,14 +12,17 @@ function App() {
 
   //states
   const [token, setToken] = useState( "" )
+  
   const [searchKey, setSearchKey] = useState( "" )
   const [searchResultArtists, setSearchResultArtists] = useState( [] )
   const [searchResultAlbums, setSearchResultAlbums] = useState( [] )
   const [searchResultPlaylists, setSearchResultPlaylists] = useState([])
   const [searchResultTracks, setSearchResultTracks] = useState([])
+
   const [userPlaylists, setUserPlaylists] = useState( [] )
   const [userArtists, setUserArtists] = useState( [] )
   const [userAlbums, setUserAlbums] = useState( [] )
+
   const [searchFlag, setSearchFlag] = useState( false )
   const [playlistFlag, setPlaylistFlag] = useState( false )
   const [artistFlag, setArtistFlag] = useState( false )
